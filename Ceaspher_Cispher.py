@@ -92,6 +92,7 @@ while True:
             print("DECRYPTING...")
             #Adds realism and trust to the user
             time.sleep(len(text))
+            #Calls the decrypt function
             decrypt()
         #If not, the program will try every combination of keys
         else:
