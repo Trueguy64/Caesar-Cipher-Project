@@ -33,14 +33,19 @@ def decrypt():
             decrypted_text += chr(x)
         else:
             decrypted_text += char
-    print(decrypted_text)
+    print("[",key,"] ",decrypted_text)
     print("================================================================================")
     decrypted_text = ""
+def brute():
+    global key
+    key = 0
+    for key in range(26):
+        key += 1
+        decrypt()
 print("========================= WELCOME TO THE MI6 ENCRYPTOR==========================")
 #This will allow the program to run infinitly
 while True:
     #This part of the code is where the agent will enter their provided message to transmit "securely"
-
     text = input("ENTER PROVIDED TEXT: ")
     choice = input("ENCRYPT OR DECRYPT [e/d]: ").lower()
     if choice == "e":
