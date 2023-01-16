@@ -63,6 +63,7 @@ def brute():
     for key in range(26):
         #Itterates from 1 to 26
         key += 1
+        time.sleep(0.25)
         #The decrypt function is used to save time, 
         decrypt()
 #This section of the code is where the agent will enter their provided message to transmit "securely"
@@ -75,10 +76,11 @@ while True:
     choice = input("ENCRYPT OR DECRYPT [e/d]: ").lower()
     #This choice will allow the user to encrypt their text with a key
     if choice == "e":
-        key = input("ENTER PROVIDED KEY: ")
+        #This indicates how much the user wants to shift
+        key = int(input("ENTER PROVIDED KEY: "))
         print("ENCRYPTING...")
         #Loading time will depend on how long the text is
-        time.sleep(len(text))
+        time.sleep(0.25)
         #Calls the encrypt function
         encrypt()
     else:
@@ -86,12 +88,12 @@ while True:
         key_state = input("Do you have a key [y/n]? ").lower()
         #If yes, they enter a key
         if key_state == "y":
-            #This indicates how much the user wants to shift
+            #This also indicates how much the user wants to shift
             key = int(input("ENTER PROVIDED KEY: "))
             #This shows that the user's input is being decrypted
             print("DECRYPTING...")
             #Adds realism and trust to the user
-            time.sleep(len(text))
+            time.sleep(0.25)
             #Calls the decrypt function
             decrypt()
         #If not, the program will try every combination of keys
