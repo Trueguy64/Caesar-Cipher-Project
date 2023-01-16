@@ -75,7 +75,10 @@ while True:
     choice = input("ENCRYPT OR DECRYPT [e/d]: ").lower()
     #This choice will allow the user to encrypt their text with a key
     if choice == "e":
-        key = int(input("ENTER PROVIDED KEY: "))
+        key = input("ENTER PROVIDED KEY: ")
+        #Checks if the key is a digit
+        while key.isdigit() == False:
+            key = input("PLEASE ENTER A KEY: ")
         print("ENCRYPTING...")
         #Loading time will depend on how long the text is
         time.sleep(len(text))
