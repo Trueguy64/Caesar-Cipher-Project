@@ -1,9 +1,15 @@
 #Imports time library for the loading feature
 import time
+#Imports the subprocess library for copying to clipboard
+import subprocess
 #This function will go over each character of the text, convert it into ASCII, shifts it, and converts it back to an encrypted text.
+def clipboard(final_text):
+    cmd='echo '+final_text.strip()+'|clip'
+    return subprocess.check_call(cmd, shell=True)
+    final_text.replace('\n',' ')
 def encrypt():
     #This is a string variable for the final output
-    encrypted_text = ("ENCRYPTED TEXT: ")
+    encrypted_text = ""
     #Goes through each character
     for char in text:
         #Converts those characters into ASCII
@@ -23,7 +29,8 @@ def encrypt():
         #Checks for characters, symbols, and signs, and does not shift them
             encrypted_text += char
     #Prints the encrypted text
-    print(encrypted_text)
+    print("ENCRYPTED TEXT: ",encrypted_text)
+    clipboard(encrypted_text)
     #Used to seperate each session
     print("================================================================================")
     #Clears the encrypted_text variable for next session
@@ -31,7 +38,7 @@ def encrypt():
 #This function will decrypt the text if a key is provided.
 def decrypt():
     #This is also string variable for the final output
-    decrypted_text = ("DECRYPTED TEXT: ")
+    decrypted_text = ""
     #Goes through each character
     for char in text:
         #Converts those characters into ASCII
@@ -49,7 +56,8 @@ def decrypt():
         #Checks for characters, symbols, and signs, and does not shift them
             decrypted_text += char
     #Prints the decrypted text along with the key
-    print("[",key,"] ",decrypted_text)
+    print("[",key,"] ","DECRYPTED TEXT: ",decrypted_text)
+    clipboard(decrypted_text)
     #Used to seperate each session
     print("================================================================================")
     decrypted_text = ""
