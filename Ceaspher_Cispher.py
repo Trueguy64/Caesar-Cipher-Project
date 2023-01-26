@@ -1,12 +1,10 @@
 #Imports time library for the loading feature
 import time
-#Imports the subprocess library for copying to clipboard
-import subprocess
+#This function is added for loading and waiting.
+def loading():
+        #Uses the time library to enable sleeping.
+        time.sleep(0.75)
 #This function will go over each character of the text, convert it into ASCII, shifts it, and converts it back to an encrypted text.
-def clipboard(final_text):
-    cmd='echo '+final_text.strip()+'|clip'
-    return subprocess.check_call(cmd, shell=True)
-    final_text.replace('\n',' ')
 def encrypt():
     #This is a string variable for the final output
     encrypted_text = ""
@@ -30,7 +28,6 @@ def encrypt():
             encrypted_text += char
     #Prints the encrypted text
     print("ENCRYPTED TEXT: ",encrypted_text)
-    clipboard(encrypted_text)
     #Used to seperate each session
     print("================================================================================")
     #Clears the encrypted_text variable for next session
@@ -57,7 +54,6 @@ def decrypt():
             decrypted_text += char
     #Prints the decrypted text along with the key
     print("[",key,"] ","DECRYPTED TEXT: ",decrypted_text)
-    clipboard(decrypted_text)
     #Used to seperate each session
     print("================================================================================")
     decrypted_text = ""
@@ -71,40 +67,48 @@ def brute():
     for key in range(26):
         #Itterates from 1 to 26
         key += 1
-        time.sleep(0.25)
+        loading()
         #The decrypt function is used to save time, 
         decrypt()
-#This section of the code is where the agent will enter their provided message to transmit "securely"
+#Print a welcome message to the user
 print("========================= WELCOME TO THE MI6 ENCRYPTOR==========================")
-#This will allow the program to run infinitly
-while True:
-    #Enter the text they want to encrypt/decrypt
-    text = input("ENTER PROVIDED TEXT: ")
-    #Decides whether to decrypt or encrypt
-    choice = input("ENCRYPT OR DECRYPT [e/d]: ").lower()
-    #This choice will allow the user to encrypt their text with a key
-    if choice == "e":
-        #This indicates how much the user wants to shift
-        key = int(input("ENTER PROVIDED KEY: "))
-        print("ENCRYPTING...")
-        #Loading time will depend on how long the text is
-        time.sleep(0.25)
-        #Calls the encrypt function
-        encrypt()
-    else:
-        #Ask if the user has the key to decrypt
-        key_state = input("Do you have a key [y/n]? ").lower()
-        #If yes, they enter a key
-        if key_state == "y":
-            #This also indicates how much the user wants to shift
-            key = int(input("ENTER PROVIDED KEY: "))
-            #This shows that the user's input is being decrypted
-            print("DECRYPTING...")
-            #Adds realism and trust to the user
-            time.sleep(0.25)
-            #Calls the decrypt function
-            decrypt()
-        #If not, the program will try every combination of keys
-        else:
-            #Calls in the brute-force function
-            brute()
+#This section of the code is where the agent will enter their provided message to transmit "securely"
+def program():
+        #This will allow the program to run infinitly
+        while True:
+            #Makes the text variable accessible by all the functions
+            global text
+            #Makes the key variable accessible by all the functions
+            global key
+            #Enter the text they want to encrypt/decrypt
+            text = input("ENTER PROVIDED TEXT: ")
+            #Decides whether to decrypt or encrypt
+            choice = input("ENCRYPT OR DECRYPT [e/d]: ").lower()
+            #This choice will allow the user to encrypt their text with a key
+            if choice == "e":
+                #This indicates how much the user wants to shift
+                key = int(input("ENTER PROVIDED KEY: "))
+                print("ENCRYPTING...")
+                #Added loading for realism.
+                loading()
+                #Calls the encrypt function
+                encrypt()
+            #If the user enters anything else, the program will automatically assume they want to decrypt.
+            else:
+                #Ask if the user has the key to decrypt
+                key_state = input("Do you have a key [y/n]? ").lower()
+                #If yes, they enter a key
+                if key_state == "y":
+                    #This also indicates how much the user wants to shift
+                    key = int(input("ENTER PROVIDED KEY: "))
+                    #This shows that the user's input is being decrypted
+                    print("DECRYPTING...")
+                    #Adds realism and trust to the user
+                    loading()
+                    #Calls the decrypt function
+                    decrypt()
+                #If not, the program will try every combination of keys
+                else:
+                    #Calls in the brute-force function
+                    brute()
+program()
